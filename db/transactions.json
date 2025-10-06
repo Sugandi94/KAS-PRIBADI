@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1759754448795,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 3600000,
+    "category": "Gaji",
+    "description": "Gaji Paksu"
+  },
+  {
+    "id": 1759757195109,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 200000,
+    "category": "Simpanan",
+    "description": "Uang Baru"
+  },
+  {
+    "id": 1759757212464,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 90000,
+    "category": "Simpanan",
+    "description": "Ada"
+  },
+  {
+    "id": 1759764307730,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 34234,
+    "category": "Gaji",
+    "description": ""
+  },
+  {
+    "id": 1759764312923,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 32423432,
+    "category": "Simpanan",
+    "description": ""
+  },
+  {
+    "id": 1759764334234,
+    "date": "2025-10-06",
+    "type": "pemasukan",
+    "amount": 23423432432,
+    "category": "Belanja",
+    "description": ""
+  },
+  {
+    "id": 1759765200177,
+    "date": "2023-10-27",
+    "type": "pemasukan",
+    "category": "Gaji",
+    "amount": 5000000,
+    "description": "Gaji bulan Oktober"
+  },
+  {
+    "id": 1759765200183,
+    "date": "2023-10-28",
+    "type": "pengeluaran",
+    "category": "Makanan",
+    "amount": 150000,
+    "description": "Belanja mingguan"
+  }
+]

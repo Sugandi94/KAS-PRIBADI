@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manajemen Data</h1>
+            <a href="/" style="float: right; margin-top: -40px; text-decoration: none; color: #3498db;">&larr; Kembali ke Aplikasi</a>
+        </header>
+
+        <section class="data-controls">
+            <h2>Import / Export Data</h2>
+            <div class="controls-container">
+                <div class="control-group">
+                    <h3>Export Data</h3>
+                    <p>Unduh semua data transaksi ke dalam file Excel (.xlsx).</p>
+                    <button id="export-btn">Export ke .xlsx</button>
+                </div>
+                <div class="control-group">
+                    <h3>Import Data</h3>
+                    <p>Unggah file Excel (.xlsx) untuk menambah transaksi baru.</p>
+                    
+                    <!-- TAMBAHKAN TOMBOL DOWNLOAD TEMPLATE -->
+                    <button id="download-template-btn" style="background-color: #3498db; margin-bottom: 15px;">Download Template</button>
+
+                    <form id="import-form" enctype="multipart/form-data">
+                        <input type="file" name="file" id="import-file" accept=".xlsx" required>
+                        <button type="submit">Import Data</button>
+                    </form>
+                    <small style="display:block; margin-top: 10px; color: #555;">
+                        <strong>Catatan:</strong> Pastikan file Excel memiliki kolom: <code>date</code>, <code>type</code>, <code>category</code>, <code>amount</code>, <code>description</code>.
+                    </small>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-view">
+            <h2>Data Saat Ini di Database</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Tipe</th>
+                        <th>Kategori</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body">
+                    <!-- Data akan dimuat di sini -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <script src="belakang.js"></script>
+</body>
+</html>

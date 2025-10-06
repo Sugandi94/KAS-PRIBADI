@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Tabungan Pribadi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aplikasi Tabungan Pribadi</h1>
+        </header>
+
+        <section class="summary-section">
+            <h2>Ringkasan Keuangan</h2>
+            <div class="summary-cards">
+                <div class="card income">
+                    <h3>Total Pemasukan</h3>
+                    <p id="total-income">Rp 0</p>
+                </div>
+                <div class="card expense">
+                    <h3>Total Pengeluaran</h3>
+                    <p id="total-expense">Rp 0</p>
+                </div>
+                <div class="card balance">
+                    <h3>Saldo</h3>
+                    <p id="balance">Rp 0</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Tambah Transaksi Baru</h2>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="date">Tanggal</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Tipe</label>
+                    <select id="type" required>
+                        <option value="pemasukan">Pemasukan</option>
+                        <option value="pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="category">Kategori</label>
+                    <select id="category" required>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Jumlah (Rp)</label>
+                    <input type="number" id="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Deskripsi</label>
+                    <input type="text" id="description" placeholder="opsional">
+                </div>
+                <button type="submit">Tambah Transaksi</button>
+            </form>
+        </section>
+
+        <section class="transactions-section">
+            <h2>Riwayat Transaksi</h2>
+            
+            <div class="filters">
+                <div class="form-group">
+                    <label for="filter-month">Filter Bulan</label>
+                    <select id="filter-month">
+                        <option value="">Semua Bulan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter-category">Filter Kategori</label>
+                    <select id="filter-category">
+                        <option value="">Semua Kategori</option>
+                    </select>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Kategori</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-list">
+                </tbody>
+            </table>
+
+            <div id="pagination-controls">
+                <div class="pagination-info">
+                    <span id="pagination-info-text"></span>
+                </div>
+                <div class="pagination-settings">
+                    <label for="items-per-page">Data per halaman:</label>
+                    <select id="items-per-page">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <!-- TAMBAHKAN OPSI SEMUA DI SINI -->
+                        <option value="999999">Semua</option>
+                    </select>
+                </div>
+                <div class="pagination-buttons" id="pagination-buttons">
+                </div>
+            </div>
+
+            <section class="details-section">
+                <h2>Detail Pemasukan & Pengeluaran</h2>
+                <div class="details-container">
+                    <div class="details-column">
+                        <h3>Detail Pemasukan per Kategori</h3>
+                        <div id="income-details-list">
+                        </div>
+                    </div>
+                    <div class="details-column">
+                        <h3>Detail Pengeluaran per Kategori</h3>
+                        <div id="expense-details-list">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <!-- Modal Dinamis -->
+    <div id="action-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Judul Modal</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-body">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
