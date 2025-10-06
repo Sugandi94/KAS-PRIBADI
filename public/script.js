@@ -1,5 +1,6 @@
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
+    // ... (deklarasi variabel yang sama) ...
     const transactionForm = document.getElementById('transaction-form');
     const transactionList = document.getElementById('transaction-list');
     const categorySelect = document.getElementById('category');
@@ -21,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const paginationButtons = document.getElementById('pagination-buttons');
     const paginationInfoText = document.getElementById('pagination-info-text');
 
+    // --- TAMBAHKAN VARIABEL UNTUK TOGGLE FORM ---
+    const toggleFormBtn = document.getElementById('toggle-form-btn');
+    const formContainer = document.getElementById('form-container');
+
     let pendingAction = null;
     let pendingId = null;
 
@@ -31,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const API_URL = 'http://localhost:3000/api';
 
+    // ... (semua fungsi sebelum `initializeApp` tetap sama) ...
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -169,18 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderPaginationControls = () => {
-        // --- PERBAIKAN: Logika untuk "Tampilkan Semua" ---
         const startItem = totalItems > 0 ? 1 : 0;
         const endItem = totalItems;
         paginationInfoText.textContent = `Menampilkan ${startItem}-${endItem} dari ${totalItems} data`;
 
-        // Jika menampilkan semua data, sembunyikan tombol pagination
         if (itemsPerPage >= 999999) {
             paginationButtons.innerHTML = '';
             return;
         }
 
-        // Jika tidak, tampilkan tombol pagination seperti biasa
         paginationButtons.innerHTML = '';
         
         const prevBtn = document.createElement('button');
@@ -365,10 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
     filterMonthSelect.addEventListener('change', handleFilterChange);
     filterCategorySelect.addEventListener('change', handleFilterChange);
 
-    // --- PERBAIKAN: Event listener untuk dropdown items per page ---
     itemsPerPageSelect.addEventListener('change', () => {
         itemsPerPage = parseInt(itemsPerPageSelect.value);
-        currentPage = 1; // Reset ke halaman 1 saat limit berubah
+        currentPage = 1;
         fetchTransactions(currentPage, itemsPerPage);
     });
 
@@ -395,6 +397,11 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchSummary();
             fetchAndRenderDetails();
             populateFilters();
+            
+            // --- PERBAIKAN: Setelah berhasil tambah, sembunyikan form dan reset tombol ---
+            formContainer.classList.add('hidden');
+            toggleFormBtn.textContent = '+ Tambah Transaksi Baru';
+            toggleFormBtn.classList.remove('close');
         } else {
             alert('Gagal menambah transaksi');
         }
@@ -419,6 +426,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     };
+
+    // --- FUNGSI BARU UNTUK TOGGLE FORM ---
+    toggleFormBtn.addEventListener('click', () => {
+        if (formContainer.classList.contains('hidden')) {
+            // Jika form sedang disembunyikan, tampilkan form
+            formContainer.classList.remove('hidden');
+            toggleFormBtn.textContent = '- Tutup Form';
+            toggleFormBtn.classList.add('close');
+        } else {
+            // Jika form sedang ditampilkan, sembunyikan form
+            formContainer.classList.add('hidden');
+            toggleFormBtn.textContent = '+ Tambah Transaksi Baru';
+            toggleFormBtn.classList.remove('close');
+        }
+    });
 
     const initializeApp = async () => {
         await fetchCategoriesForForm();
