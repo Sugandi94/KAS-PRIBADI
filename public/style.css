@@ -359,3 +359,45 @@ tbody tr:hover {
     cursor: not-allowed;
     background-color: #f9f9f9;
 }
+
+/* ... (semua kode sebelumnya tetap sama) ... */
+
+/* TAMBAHKAN GAYA UNTUK TOGGLE DAN HIDDEN ELEMENT */
+.hidden {
+    display: none;
+}
+
+.toggle-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 20px; /* Beri jarak dengan form yang akan muncul */
+}
+
+.toggle-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.toggle-btn.close {
+    background-color: #e74c3c;
+}
+
+.toggle-btn.close:hover {
+    background-color: #c0392b;
+}
+
+/* Sedikit penyesuaian agar form yang muncul terlihat rapi */
+#form-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
