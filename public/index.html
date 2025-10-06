@@ -31,34 +31,41 @@
         </section>
 
         <section class="form-section">
-            <h2>Tambah Transaksi Baru</h2>
-            <form id="transaction-form">
-                <div class="form-group">
-                    <label for="date">Tanggal</label>
-                    <input type="date" id="date" required>
-                </div>
-                <div class="form-group">
-                    <label for="type">Tipe</label>
-                    <select id="type" required>
-                        <option value="pemasukan">Pemasukan</option>
-                        <option value="pengeluaran">Pengeluaran</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="category">Kategori</label>
-                    <select id="category" required>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Jumlah (Rp)</label>
-                    <input type="number" id="amount" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Deskripsi</label>
-                    <input type="text" id="description" placeholder="opsional">
-                </div>
-                <button type="submit">Tambah Transaksi</button>
-            </form>
+            <h2>Transaksi</h2>
+            
+            <!-- TAMBAHKAN TOMBOL UNTUK MEMBUKA FORM -->
+            <button id="toggle-form-btn" class="toggle-btn">+ Tambah Transaksi Baru</button>
+
+            <!-- BUNGKUS FORM DI DALAM DIV INI -->
+            <div id="form-container" class="hidden">
+                <form id="transaction-form">
+                    <div class="form-group">
+                        <label for="date">Tanggal</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Tipe</label>
+                        <select id="type" required>
+                            <option value="pemasukan">Pemasukan</option>
+                            <option value="pengeluaran">Pengeluaran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategori</label>
+                        <select id="category" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Jumlah (Rp)</label>
+                        <input type="number" id="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <input type="text" id="description" placeholder="opsional">
+                    </div>
+                    <button type="submit">Tambah Transaksi</button>
+                </form>
+            </div>
         </section>
 
         <section class="transactions-section">
@@ -104,7 +111,6 @@
                         <option value="10" selected>10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
-                        <!-- TAMBAHKAN OPSI SEMUA DI SINI -->
                         <option value="999999">Semua</option>
                     </select>
                 </div>
