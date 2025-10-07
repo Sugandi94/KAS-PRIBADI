@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const API_URL = 'http://localhost:3000/api';
 
+    let financeChart;
+
     // ... (semua fungsi sebelum `initializeApp` tetap sama) ...
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('id-ID', {
@@ -353,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetchSummary();
                 fetchAndRenderDetails();
                 populateFilters();
+                renderChart();
             } else {
                 alert('Gagal memperbarui transaksi');
             }
@@ -397,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchSummary();
             fetchAndRenderDetails();
             populateFilters();
+            renderChart();
             
             // --- PERBAIKAN: Setelah berhasil tambah, sembunyikan form dan reset tombol ---
             formContainer.classList.add('hidden');
@@ -421,6 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetchSummary();
                 fetchAndRenderDetails();
                 populateFilters();
+                renderChart();
             } else {
                 alert('Gagal menghapus transaksi');
             }
@@ -442,6 +447,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const renderChart = async () => {
+        const res = await fetch(`${API_URL}/transactions?all=true`);
+        const transactions = await res.json();
+
+        const monthlyData = {};
+        transactions.forEach(tx => {
+            const month = tx.date.substring(0, 7); // YYYY-MM
+            if (!monthlyData[month]) {
+                monthlyData[month] = { income: 0, expense: 0 };
+            }
+            if (tx.type === 'pemasukan') {
+                monthlyData[month].income += tx.amount;
+            } else {
+                monthlyData[month].expense += tx.amount;
+            }
+        });
+
+        const labels = Object.keys(monthlyData).sort();
+        const incomeData = labels.map(month => monthlyData[month].income);
+        const expenseData = labels.map(month => monthlyData[month].expense);
+
+        const ctx = document.getElementById('finance-chart').getContext('2d');
+        if (financeChart) {
+            financeChart.destroy();
+        }
+        financeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels.map(month => {
+                    const [year, monthNum] = month.split('-');
+                    return new Date(year, monthNum - 1).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
+                }),
+                datasets: [{
+                    label: 'Pemasukan',
+                    data: incomeData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
+                }, {
+                    label: 'Pengeluaran',
+                    data: expenseData,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grafik Pemasukan dan Pengeluaran Bulanan'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return formatCurrency(value);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    };
+
     const initializeApp = async () => {
         await fetchCategoriesForForm();
         await populateFilters();
@@ -450,6 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchTransactions(1, itemsPerPage);
         fetchSummary();
         fetchAndRenderDetails();
+        renderChart();
     };
 
     initializeApp();
